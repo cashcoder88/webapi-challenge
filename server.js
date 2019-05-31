@@ -40,12 +40,30 @@ server.get('/projects', (req, res) => {
         })
     })
 });
+//-----------------------------------
 
 // POSTS
 
 server.post('/actions', (req, res) => {
     console.log('REQ BODY ACTIONS', req.body);
     console.log('REQ PARAMS ACTIONS', req.params);
+    const projectId = req.body.project_id;
+    const actionInfo = req.body;
+    if (!projectId) {
+        res.status(400).json({
+            errorMessage: 'Please provide project id'
+        })
+    }
+    else {
+        dbActions.insert(actionInfo)
+        .then(action => {
+            res.status(201).json(action)
+        })
+        .catch(err => {
+            errorMessage: 'There was an error saving the action to the db'
+        })
+    }
+
 
 });
 
@@ -67,6 +85,8 @@ server.post('/projects', (req, res) => {
         })
     }
 });
+
+//-----------------------------------
 
 
 
