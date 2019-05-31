@@ -10,7 +10,19 @@ server.use(helmet());
 server.use(express.json());
 
 
-
+// GET LIST OF PROJECTS ACTIONS
+server.get('/projects/:project_id', (req, res) => {
+    const id = req.params.project_id;
+    dbProjects.getProjectActions(id)
+    .then(actions => {
+        res.status(200).json(actions)
+    })
+    .catch(err => {
+        res.status(500).json({
+            errorMessage: 'unable to retrieve list of projects actions'
+        })
+    })
+});
 
 // GETS
 server.get('/actions', (req, res) => {
@@ -191,7 +203,7 @@ server.put('/projects/:id', (req, res) => {
     }
 })
 
-
+//-----------------------------------
 
 
 module.exports = server;
