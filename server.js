@@ -92,7 +92,7 @@ server.post('/projects', (req, res) => {
 
 // DELETE
 
-server.delete('/actions', (req, res) => {
+server.delete('/actions/:id', (req, res) => {
     const {id} = req.params;
     dbActions.remove(id)
     .then(deleted => {
@@ -105,10 +105,31 @@ server.delete('/actions', (req, res) => {
             })
         }
     })
+    .catch(err => {
+        res.status(500).json({
+            errorMessage: "the action could not be deleted"
+        })
+    })
 });
 
-server.delete('/projects', (req, res) => {
-    
+server.delete('/projects/:id', (req, res) => {
+    const {id} = req.params;
+    dbProjects.remove(id)
+    .then(deleted => {
+        if (deleted) {
+            res.status(204).end();
+        }
+        else {
+            res.status(404).json({
+                errorMessage: "The project with the specified ID does not exist."
+            })
+        }
+    })
+    .catch(err => {
+        res.status(500).json({
+            errorMessage: "the project could not be deleted"
+        })
+    })
 });
 
 module.exports = server;
