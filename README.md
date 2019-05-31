@@ -59,7 +59,7 @@ Follow these steps for completing your project.
 
 - [x] Submit a Pull-Request to merge <firstName-lastName> Branch into master on your fork. **Please don't merge your own pull request.**
 - [x] Add your _Project Manager_ as a Reviewer on the Pull-request
-- [ ] Your _Project Manager_ will count the challenge as done by merging the branch into _master_.
+- [x] Your _Project Manager_ will count the challenge as done by merging the branch into _master_.
 
 ## Database Persistence Helpers
 
@@ -88,7 +88,8 @@ Puts [x]
 Posts [x]
 Gets [x]
 Deletes [x]
-- [ ] Retrieve the list of actions for a project.
+- [x] Retrieve the list of actions for a project.
+- Deployed on Heroku -> https://webapichallenge-cashglobe.herokuapp.com/
 
 ### Database Schemas
 
