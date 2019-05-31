@@ -60,11 +60,11 @@ server.post('/actions', (req, res) => {
             res.status(201).json(action)
         })
         .catch(err => {
-            errorMessage: 'There was an error saving the action to the db'
+            res.status(500).json({
+                error: "There was an error while saving the user to the database" 
+           })
         })
     }
-
-
 });
 
 server.post('/projects', (req, res) => {
@@ -81,13 +81,34 @@ server.post('/projects', (req, res) => {
             res.status(201).json(project)
         })
         .catch(err => {
-            errorMessage: 'There was an error saving the project to the db'
+            res.status(500).json({
+                errorMessage: 'There was an error saving the project to the db'
+            })
         })
     }
 });
 
 //-----------------------------------
 
+// DELETE
 
+server.delete('/actions', (req, res) => {
+    const {id} = req.params;
+    dbActions.remove(id)
+    .then(deleted => {
+        if (deleted) {
+            res.status(204).end();
+        }
+        else {
+            res.status(404).json({
+                errorMessage: "The action with the specified ID does not exist."
+            })
+        }
+    })
+});
+
+server.delete('/projects', (req, res) => {
+    
+});
 
 module.exports = server;
