@@ -7,13 +7,18 @@ const projectRouter = require('./routes/projectRouter')
 const actionsRouter = require('./routes/actionsRouter')
 const server = express();
 
-
-server.use('/projects', projectRouter);
-server.use('/actions', actionsRouter);
 server.use(helmet());
 server.use(express.json());
+server.use(logger)
+server.use('/projects', projectRouter);
+server.use('/actions', actionsRouter);
 
 
+  function logger(req, res, next) {
+    const now = new Date().toISOString();
+    console.log(`Today at ${now} a ${req.method} request was made to ${req.url}`)
+    next();
+  }
 // GET LIST OF PROJECTS ACTIONS
 // server.get('/projects/:project_id', (req, res) => {
 //     const id = req.params.project_id;
