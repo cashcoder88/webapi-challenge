@@ -9,7 +9,13 @@ const server = express();
 server.use(helmet());
 server.use(express.json());
 
+
+
+
+// GETS
 server.get('/actions', (req, res) => {
+    console.log('REQ BODY ACTIONS', req.body);
+    console.log('REQ PARAMS ACTIONS', req.params);
     dbActions.get()
     .then(actions => {
         res.status(200).json(actions)
@@ -22,6 +28,8 @@ server.get('/actions', (req, res) => {
 });
 
 server.get('/projects', (req, res) => {
+    console.log('REQ BODY PROJECTS', req.body);
+    console.log('REQ PARAMS PROJECTS', req.params);
     dbProjects.get()
     .then(projects => {
         res.status(200).json(projects)
@@ -33,6 +41,32 @@ server.get('/projects', (req, res) => {
     })
 });
 
+// POSTS
+
+server.post('/actions', (req, res) => {
+    console.log('REQ BODY ACTIONS', req.body);
+    console.log('REQ PARAMS ACTIONS', req.params);
+
+});
+
+server.post('/projects', (req, res) => {
+    const {name, description} = req.body;
+    const projectInfo = req.body;
+    if (!name || !description ) {
+        res.status(400).json({
+            errorMessage: 'Please provide name and description of project'
+        })
+    }
+    else {
+        dbProjects.insert(projectInfo)
+        .then(project => {
+            res.status(201).json(project)
+        })
+        .catch(err => {
+            errorMessage: 'There was an error saving the project to the db'
+        })
+    }
+});
 
 
 
