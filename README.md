@@ -90,7 +90,8 @@ Gets [x]
 Deletes [x]
 - [x] Retrieve the list of actions for a project.
 - Deployed on Heroku -> https://webapichallenge-cashglobe.herokuapp.com/
-
+- Added a logger middleware
+FINISHED [x]
 ### Database Schemas
 
 The _schemas_ (properties and data type of each property) used to store and retrieve the resources inside the included database (`lambda.sqlite3`) is described below.
