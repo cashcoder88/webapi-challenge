@@ -90,7 +90,7 @@ server.post('/projects', (req, res) => {
 
 //-----------------------------------
 
-// DELETE
+// DELETES
 
 server.delete('/actions/:id', (req, res) => {
     const {id} = req.params;
@@ -131,5 +131,67 @@ server.delete('/projects/:id', (req, res) => {
         })
     })
 });
+
+//-----------------------------------
+
+// Updates (PUTS)
+server.put('/actions/:id', (req, res) => {
+    const actionChanges = req.body;
+    const projectId = req.body.project_id;
+    const {id} = req.params;
+    if (!projectId) {
+        res.status(400).json({ 
+            errorMessage: "Please provide project ID for the action." 
+        })
+    }
+    else {
+        dbActions.update(id, actionChanges)
+        .then(updated => {
+            if (updated) {
+                res.status(200).json(updated)
+            } else {
+                res.status(404).json({
+                    message: 'The action with the specified id does not exist'
+                })
+            }
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: "The action information could not be modified."
+            })
+        })
+    }
+})
+
+server.put('/projects/:id', (req, res) => {
+    // const changes = req.body;
+    // const {name, bio} = req.body;
+    // const {id} = req.params;
+    // if (!name || !bio ) {
+    //     res.status(400).json({ 
+    //         errorMessage: "Please provide name and bio for the user." 
+    //     })
+    // }
+    // else 
+    // db.update(id, changes)
+    // .then(updated => {
+    //     if (updated) {
+    //         res.status(200).json(updated)
+    //     } else {
+    //         res.status(404).json({
+    //             message: "The user with the specified ID does not exist."
+    //         })
+    //     }
+    // })
+    // .catch(err => {
+    //     res.status(500).json({
+    //         error: "The user information could not be modified."
+    //     })
+    // })
+    
+})
+
+
+
 
 module.exports = server;
